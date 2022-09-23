@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>orderTest.html</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        .orderAllFrame {
+            /* background-color: #cfc; */
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .orderframe {
+            background-color: #ccc;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .orderInfo {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2%;
+            height: 50px;
+            align-items: center;
+        }
+
+        .orderD {
+            cursor: pointer;
+        }
+
+        .orderdetail {
+            /* height: 600px; */
+            transition: 1s;
+            background-color: #eee;
+            /* padding: 10px; */
+            display: flex;
+        }
+
+        .orderProductFrame{
+            width: 65%;
+            padding: 10px;
+            background-color: #cff;
+        }
+        .orderProductInfo{
+            width: 35%;
+            background-color: #cfc;
+            /* height: 100%; */
+            padding: 10px;
+        }
+        .orderProductInfo>div{
+            margin: 20px 0;
+        }
+
+        .orderProduct{
+            width: 100%;
+            background-color: #fcf;
+            margin: 1% auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .productImg{
+            width: 20%;
+            line-height: 0;
+        }
+        .orderProduct h3{
+            font-size: 28px;
+        }
+        .opintxt{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            line-height: 24px;
+        }
+        .opinfotxt{
+            display: flex;
+            flex-direction: column;
+            line-height: 30px;
+        }
+        
+        .orderPS{
+            text-align: justify;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="orderAllFrame">
+
+
+        <div class="orderframe">
+            <!-- 訂單概略 -->
+            <div class="orderInfo">
+                <div class="orderdate">
+                    <h4>下訂時間</h4>
+                    <p>2022年09月15日19:40</p>
+                </div>
+                <div class="totalPrice">
+                    <h4>合計金額</h4>
+                    <p>$9999</p>
+                </div>
+                <p class="shopName">
+                    OO義大利麵
+                </p>
+                <p class="getGreat">
+                    給予評價
+                </p>
+                <p class="orderD">
+                    訂單詳細
+                </p>
+            </div>
+            <!-- 訂單明細 -->
+            <div class="orderdetail" id="odFrame">
+                <!-- 明細左半 -->
+                <div class="orderProductFrame">
+
+                    <div class="orderProduct">
+                        <div class="productImg">
+                            <img src="./photo/product1064.jpg">
+                        </div>
+                        <h3>OO豆花</h3>
+                        <div class="orderPPrice opintxt">
+                            <p>價格</p>
+                            <p>200</p>
+                        </div>
+                        <div class="orderPAmount opintxt">
+                            <p>數量</p>
+                            <p>2</p>
+                        </div>
+                        <div class="orderPTotalprice opintxt">
+                            <p>總價</p>
+                            <p>400</p>
+                        </div>                        
+                    </div>
+
+                </div>
+                <!-- 明細右半 -->
+                <div class="orderProductInfo">
+
+                    <div class="opinfotxt">
+                        <p>下訂時間</p>
+                        <p>2022年9月15日19:40</p>
+                    </div>
+
+                    <div class="opinfotxt">
+                        <p>接單時間</p>
+                        <p>2022年9月15日21:40</p>
+                    </div>
+
+                    <div class="opinfotxt">
+                        <p>完成時間</p>
+                        <p>2022年9月15日21:50</p>
+                    </div>
+
+                    <div class="opinfotxt">
+                        <p>使用優惠</p>
+                        <p>折扣10%</p>
+                    </div>
+
+                    <div class="opinfotxt">
+                        <p>備註</p>
+                        <p class="orderPS">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum soluta veniam, voluptates quae ipsa commodi quod recusandae reiciendis facilis ad in obcaecati! Id, sequi reprehenderit dignissimos ut officiis itaque quis.
+                            Modi repellendus cum nemo? Libero sed qui minus doloribus sapiente repudiandae reiciendis atque, exercitationem hic maiores obcaecati est! Asperiores ipsam quas debitis nihil quam, dolorem distinctio officiis pariatur animi est.
+                            Cumque officiis blanditiis magni necessitatibus asperiores eum, molestiae deleniti delectus eius officia architecto, animi maxime, corrupti qui dolorum sit non ipsum repudiandae ipsa aliquid nam. Quidem incidunt architecto reprehenderit minima.
+                            Accusamus dolore exercitationem vitae asperiores, vero laborum ipsa perspiciatis quos, nostrum distinctio debitis magnam quae quia perferendis numquam! Distinctio accusamus, sequi perferendis aliquid iure explicabo tenetur consectetur vel architecto totam.
+                            Reprehenderit perspiciatis corrupti provident corporis debitis adipisci, aliquam quod obcaecati quibusdam temporibus eveniet sed sint dolor natus mollitia earum. Ducimus explicabo ullam laboriosam quidem dicta beatae optio odit accusantium labore.
+                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint nobis beatae suscipit doloremque aliquam doloribus omnis exercitationem commodi maiores culpa, ex vero. Veritatis minima laudantium nemo et ex quidem quia. </p>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+        let odBTN = document.querySelector(".orderD")
+        let odFR = document.querySelector("#odFrame")
+
+        let odST = false;
+        odBTN.addEventListener("click", () => {
+            if (odST) {
+                odFR.style.display = "none";
+                odST = false;
+            }
+            else {
+                odFR.style.display = "flex";
+                odST = true;
+            }
+
+        })
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

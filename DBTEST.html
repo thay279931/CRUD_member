@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBTEST</title>
+
+</head>
+
+<body>
+    <script>     
+        let getData =
+        fetch("linksql.php")
+        .then(r=>r.json())
+        .then(ar=>{
+            //ar 這邊直接做要分配的事
+            return ar
+            // console.log(ar)
+        })
+
+        console.log(getData)
+        
+
+
+
+        // fetch("linksql.php")
+        // .then(r=>r.json())
+        // .then(ar=>{
+        //     getData = ar;
+
+        //     // getData.sort((a,b)=>{
+        //     //     return a.sid - b.sid;
+        //     // })
+        //     // console.log(getData)
+
+        //     getData.sort((a,b)=>{
+        //         return a.name <  b.name?-1:1;
+        //     })
+        //     console.log(getData)
+        //     return getData
+            
+        // })
+        
+
+
+
+    </script>
+
+</body>
+
+</html>

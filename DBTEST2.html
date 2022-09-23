@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>040_pages</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        .sbar {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin: 10px auto;
+
+        }
+
+        #IPSEARCH {
+            border-radius: 10px;
+            padding: 0 5px;
+            width: 340px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 36px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        #cardFrame {
+            width: 60%;
+            display: flex;
+            background-color: #ccc;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin: 0 auto;
+        }
+
+        .col {
+            width: 25%;
+            padding: 10px 10px;
+
+
+        }
+
+        .cardtest {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #3c3;
+            aspect-ratio: 2/3;
+            justify-content: space-around;
+            padding: 0 3%;
+        }
+
+        .cardtest .imgFR {
+            height: 70%;
+            width: 80%;
+        }
+
+        h3 {
+            font-size: 24px;
+            line-height: 30px;
+        }
+
+        p {
+            text-align: center;
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        #btnFR {
+            display: flex;
+            width: 500px;
+            justify-content: space-around;
+            margin: 20px auto;
+        }
+
+        .btnpage {
+            cursor: pointer;
+            border: 1px solid red;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+        .nav{
+            display: flex;
+            height: 50px;
+            width: 100%;
+            background-color: #cfc;
+            justify-content: end;
+            align-items: center;
+            padding: 0 5%;
+        }
+        .LOGIN{
+            margin: 0 2%;
+        }
+        .LOGOUT{
+            margin: 0 2%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="nav">
+        <div class="LOGIN">登入/名稱</div>
+        <div class="LOGOUT">註冊/登出</div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="sbar">
+        <input id="IPSEARCH" class="searchbar" type="text">
+    </div>
+    <div class="sbar">
+        <label for="">升序</label><input value="up" id="SORTUP" name="sort" type="radio" checked>
+        <label for="">降序</label><input value="down" id="SORTDOWN" name="sort" type="radio">
+        <button id="mae" disabled>上一頁</button>
+        <button id="usiro">下一頁</button>
+    </div>
+
+    <div id="cardFrame">
+    </div>
+    <div id="btnFR">
+    </div>
+
+
+
+
+
+    <script>
+        fetch("linksql.php",)
+            .then(r => r.json())
+            .then(ar => {
+                // console.log(arr);
+                S8MEALS = JSON.parse(JSON.stringify(ar))
+                // console.log(S8MEALS)
+
+                let pagenow = 1;
+                let pageall;
+                let cutAmount = 12;
+                //頁數按鈕
+                const FR = document.querySelector("#btnFR")
+
+                //上下頁按鍵
+                const MAE = document.querySelector("#mae");
+                const USIRO = document.querySelector("#usiro");
+
+                //輸入框、顯示框
+                const searchInput = document.querySelector("#IPSEARCH");
+                const showBox = document.querySelector("#cardFrame");
+
+                //排序鍵
+                const SUP = document.querySelector("#SORTUP");
+                const SDOWN = document.querySelector("#SORTDOWN");
+
+
+                Output(showBox, clipArr(arrforsort(S8MEALS, 0), cutAmount, pagenow));
+
+
+                SUP.addEventListener("click", () => {
+                    let SCHCON = searchInput.value;
+                    let sorted = 1
+                    if (SUP.checked) {
+                        sorted = 0;
+                    }
+                    Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+                })
+                SDOWN.addEventListener("click", () => {
+                    let SCHCON = searchInput.value;
+                    let sorted = 1
+                    if (SUP.checked) {
+                        sorted = 0;
+                    }
+                    Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+                })
+
+                USIRO.addEventListener("click", () => {
+                    if (pagenow == 1) {
+                        MAE.disabled = false;
+                    }
+                    if (pagenow == pageall - 1) {
+                        USIRO.disabled = true;
+                    }
+                    pagenow++;
+                    let SCHCON = searchInput.value;
+                    let sorted = 1
+                    if (SUP.checked) {
+                        sorted = 0;
+                    }
+                    Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+
+                })
+                MAE.addEventListener("click", () => {
+                    if (pagenow == 2) {
+                        MAE.disabled = true;
+                    }
+                    if (pagenow == pageall) {
+                        USIRO.disabled = false;
+                    }
+                    pagenow--;
+                    let SCHCON = searchInput.value;
+                    let sorted = 1
+                    if (SUP.checked) {
+                        sorted = 0;
+                    }
+
+                    Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+
+                })
+
+
+                searchInput.addEventListener("keyup", (evt) => {
+                    let SCHCON = evt.target.value;
+
+                    let sorted = 1
+                    pagenow = 1
+                    if (SUP.checked) {
+                        sorted = 0;
+                    }
+                    if (SCHCON !== "") {
+                        Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+                    }
+                    if (SCHCON == "") {
+                        Output(showBox, clipArr(arrforsort(S8MEALS, 0), cutAmount, pagenow));
+                    }
+                })
+
+
+                //設定頁數 (按鈕外框,資料全長,切割長度)
+                function SetPageButton(btnFrameOP, fullArrayLength, cutLength) {
+                    while (btnFrameOP.hasChildNodes()) {
+                        btnFrameOP.removeChild(btnFrameOP.lastChild);
+                    }
+                    let page = Math.ceil(fullArrayLength / cutLength);
+
+                    let docFrag = document.createDocumentFragment();
+
+                    for (let i = 0; i < page; i++) {
+                        let pageNumber = document.createElement("div");
+                        pageNumber.classList.add("btnpage");
+                        let num = document.createTextNode(`${i + 1}`);
+                        pageNumber.appendChild(num)
+                        docFrag.appendChild(pageNumber);
+                    }
+                    btnFrameOP.appendChild(docFrag);
+
+                    if (btnFrameOP.hasChildNodes()) {
+                        btnFrameOP.childNodes[pagenow - 1].setAttribute("style", "color: red")
+                    }
+                    //&&pagenow>5&&pagenow<page-5
+                    // console.log(btnFrameOP.childNodes.length)
+                    //console.log()
+                    if (btnFrameOP.childNodes.length >= 10) {
+                        if (pagenow >= 5 && pagenow <= page - 4) {
+                            for (let i = 0; i < page; i++) {
+                                if (i + 1 < pagenow - 4 || i + 1 > pagenow + 4)
+                                    btnFrameOP.childNodes[i].style.display = "none";
+                            }
+                        }
+                        else if (pagenow < 5) {
+                            for (let i = 9; i < page; i++) {
+                                btnFrameOP.childNodes[i].style.display = "none";
+                            }
+                        }
+                        else if (pagenow > page - 4) {
+                            for (let i = 0; i < page - 9; i++) {
+                                btnFrameOP.childNodes[i].style.display = "none";
+                            }
+                        }
+                    }
+
+
+
+                    let pages = document.querySelectorAll(".btnpage")
+                    for (let i = 0; i < pages.length; i++) {
+                        pages[i].addEventListener("click", () => {
+                            pagenow = i + 1;
+                            let SCHCON = searchInput.value;
+                            let sorted = 1
+                            if (SUP.checked) {
+                                sorted = 0;
+                            }
+                            Output(showBox, clipArr(arrforsort(FILT(S8MEALS, SCHCON), sorted), cutAmount, pagenow));
+
+                        })
+                    }
+                }
+
+
+                //切割陣列(陣列,切割數量,第幾頁) 輸出陣列
+                function clipArr(arrin, amount, page) {
+                    let START = (page - 1) * amount;
+                    let END = page * amount;
+                    let arrcliped = arrin.slice(START, END);
+
+                    pageall = Math.ceil(arrin.length / amount)
+                    SetPageButton(FR, arrin.length, amount);
+                    return arrcliped;
+
+                }
+
+                //搜尋 (要搜尋的文字，搜尋對象資料，輸出框，排序方式)
+                function search(text, arr, frame, sort) {
+                    Output(frame, arrforsort(FILT(arr, text), sort));
+                }
+                //篩選 輸入(陣列，要篩選的文字) 回傳陣列 移用時要改篩選對象
+                function FILT(arr, txt) {
+                    let arrout = arr.filter((value, index, array) => {
+                        if (value.product_name.indexOf(txt) !== -1) {
+                            return value.product_name;
+                        }
+                    })
+                    return arrout;
+                }
+
+                //排序(陣列，排序方式0升序，1降序)  回傳陣列
+                function arrforsort(arrin, sort) {
+                    let arrsorted = arrin.sort((a, b) => {
+                        if (sort === 1) {
+                            return b.price - a.price;  //降序
+                        }
+                        else {
+                            return a.price - b.price;   //升序
+                        }
+                    })
+                    return arrsorted;
+                }
+
+                //顯示結果  (輸出框,要輸出的陣列)
+                function Output(frameOP, arrayOP) {
+                    if (pagenow == 1) {
+                        MAE.disabled = true;
+                    }
+                    else {
+                        MAE.disabled = false;
+                    }
+                    if (pagenow == pageall) {
+                        USIRO.disabled = true;
+                    }
+                    else {
+                        USIRO.disabled = false;
+                    }
+                    while (frameOP.hasChildNodes()) {
+                        frameOP.removeChild(frameOP.lastChild);
+                    }
+                    let docFrag = document.createDocumentFragment();
+                    arrayOP.forEach(data => {
+                        let { product_name, price, product_photo } = data;
+                        let cardcol = document.createElement("div");
+                        cardcol.classList.add("col");
+                        let cardM = document.createElement("div");
+                        cardM.classList.add("cardtest");
+                        let cardH3 = document.createElement("h3");
+                        let contentIn = document.createTextNode(product_name);
+                        let cardp = document.createElement("p");
+                        let contentPrize = document.createTextNode(price);
+                        cardH3.appendChild(contentIn);
+                        cardp.appendChild(contentPrize);
+                        cardM.appendChild(cardH3);
+                        if (product_photo !== "") {
+                            let ImgFR = document.createElement("div");
+                            ImgFR.classList.add("imgFR");
+                            let Img = document.createElement("img");
+                            Img.setAttribute("src", `${product_photo}.jpg`);
+                            ImgFR.appendChild(Img);
+                            cardM.appendChild(ImgFR);
+                        }
+                        cardM.appendChild(cardp);
+                        cardcol.appendChild(cardM);
+                        docFrag.appendChild(cardcol);
+                    })
+                    frameOP.appendChild(docFrag);
+                }
+
+
+
+
+
+
+
+
+
+            })
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

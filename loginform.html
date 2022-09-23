@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        fieldset{
+            width: fit-content;
+            border: 3px dotted aqua;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+        legend{
+            border: 3px dotted aqua;
+            border-radius: 10px;
+            padding: 5px 20px;
+        }
+        .st{
+            width: 400px;
+            border-bottom: 3px double #F0F;
+            padding-bottom: 10px;
+            margin: 20px;
+
+        }
+
+        .title{
+            width: 100px;
+            float:left;
+            text-align: right;
+            padding-right: 10px;
+        }
+        textarea{
+            border-width: 2px;
+        }
+        .btn{
+            text-align: center;           
+        }
+        .fr1{
+            width: auto;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <form name="form01" onsubmit="checkForm();return false" enctype="text/plain">       
+        <fieldset>
+            
+            <legend>個人資料<em style="color: #F00;">(必填)</em></legend>
+            
+            <div class="st">
+                <label for=""  class="title">帳號</label>
+                <input type="text" name="account" placeholder="請輸入帳號" maxlength="15">
+            </div>
+
+            <div class="st">
+                <label for=""  class="title">密碼</label>
+                <input type="password" name="password"  placeholder="請輸入密碼" maxlength="15">
+            </div>
+
+            
+
+
+            <div class="st btn">
+                <input type="submit" value="送出">
+
+                <input type="reset" value="重置">        
+            </div>
+
+
+        </fieldset>
+    </form>
+
+    <script>
+
+        async function checkForm(){
+            const FD = new FormData(document.form01);
+            // console.log(FD);
+            //送給誰,物件
+            const res = await fetch('login_api.php',{
+
+                method:'POST',
+                body:FD,
+
+            })
+            const obj = await res.json();            
+            // console.log(obj);
+
+
+
+        }
+
+
+        
+
+    </script>
+
+</body>
+</html>
